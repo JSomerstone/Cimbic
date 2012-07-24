@@ -8,14 +8,8 @@ defined('NL') OR define('NL', "\n");
 
 function autoloadClass($className)
 {
+    $classPath = str_replace(array('\\', '_'), DS, $className) . '.php';
 
-    $namespaceParts = explode('\\', $className);
-
-    if (in_array($namespaceParts[0], array('JSomerstone\Cimbic', 'JSFramework')))
-    {
-        unset($namespaceParts[0]);
-    }
-    $pathToFile = implode(DS, $namespaceParts) . '.php';
 
     /*if (!file_exists($pathToFile))
     {
@@ -23,7 +17,7 @@ function autoloadClass($className)
             $className, $pathToFile, get_include_path()));
     }*/
 
-    require_once $pathToFile;
+    require_once $classPath;
 }
 
 spl_autoload_register("autoloadClass");

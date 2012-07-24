@@ -1,7 +1,7 @@
 <?php
 namespace JSomerstone\Cimbic\Core;
 
-class Controller extends \JSFramework\Controller
+class Controller extends \JSomerstone\JSFramework\Controller
 {
-    
+
 }

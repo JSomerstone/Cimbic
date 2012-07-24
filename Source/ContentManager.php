@@ -15,10 +15,21 @@ class ContentManager
      */
     private $request;
 
+    private $sitePath;
+
+
+    public function __construct($sitePath)
+    {
+        if (!file_exists($sitePath))
+        {
+            die('Unable to find content');
+        }
+        $this->sitePath = $sitePath;
+    }
 
     public function execute()
     {
-        $this->request = new \JSFramework\Cimbic\Request();
+        $this->request = new Request();
         $this->controller = $this->_getControllerByName($this->request->getController());
         $this->controller->run();
     }

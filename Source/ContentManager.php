@@ -5,13 +5,13 @@ class ContentManager
 {
     /**
      * A Controller-object based on Request
-     * @var \JSomerstone\Cimbic\Controller
+     * @var \JSomerstone\JSomerstone\Cimbic\Controller
      */
     private $controller;
 
     /**
      * A Request object
-     * @var \JSFramework\Request
+     * @var \JSomerstone\JSFramework\Request
      */
     private $request;
 
@@ -34,22 +34,21 @@ class ContentManager
         $this->controller->run();
     }
 
-    private function _getControllerByName($controllerName)
+    private function _getControllerByName($controllerName = null)
     {
         $controllerClass = sprintf('\JSomerstone\Cimbic\Controller\%s', $controllerName);
-        if (empty($controllerName)) //Without controller, use default
-        {
-            return new Controller\ShowPage($this->request);
-        }
+        $controllerFile = sprintf('JSomerstone/Cimbic/Controller/%s.php', $controllerName);
+
         //Some controller required, initialize it if exists
-        else if (class_exists($controllerClass))
-        {
-            return new $controllerClass($this->request);
-        }
-        //Unknown controller, user Exception-controller
-        else
-        {
-            return new Controller\Exception($this->request);
+        if (
+            !empty($controllerName)
+            && file_exists($controllerFile)
+            && class_exists($controllerClass)
+        ) {
+            return new $controllerClass($this->sitePath, $this->request);
+        } else {
+        //Assume show page reguest
+            return new Controller\ShowPage($this->sitePath, $this->request);
         }
     }
 }

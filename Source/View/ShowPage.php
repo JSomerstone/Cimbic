@@ -7,16 +7,37 @@ class ShowPage extends \JSomerstone\Cimbic\Core\View
     public $request;
     public $debug;
 
-    public function __toString()
+    /**
+     * Template engine Dwoo -controller
+     * @var \Dwoo
+     */
+    protected $templateController;
+
+    protected $templateFile;
+
+    protected $sitePath;
+
+    public function __construct($sitePath)
     {
-        $output = array('<h1>',
-            "Showing page #$this->pageID", '</h1>'
+        $this->sitePath = $sitePath;
+        $this->templateController = new \Dwoo();
+        $this->setTemplate($this->template);
+    }
+
+    public function setTemplate($templateName)
+    {
+        $templateLocation = sprintf('%s/Template/%s/skeleton.tpl',
+                $this->sitePath, $templateName );
+        $this->template = $templateName;
+        $this->templateFile = new \Dwoo_Template_File($templateLocation);
+    }
+
+    public function printOutput()
+    {
+        return $this->templateController->get(
+            $this->templateFile,
+            $this->data
         );
-
-        if ($this->debug)
-            $output[] = $this->_printDebug ();
-
-        return implode('', $output);
     }
 
     private function _printDebug()

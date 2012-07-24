@@ -5,19 +5,15 @@ date_default_timezone_set(TIMEZONE);
 defined('DS') OR define('DS', DIRECTORY_SEPARATOR);
 defined('NL') OR define('NL', "\n");
 
+//include_once 'Dwoo/Dwoo.php';
 
 function autoloadClass($className)
 {
-    $classPath = str_replace(array('\\', '_'), DS, $className) . '.php';
-
-
-    /*if (!file_exists($pathToFile))
-    {
-        die (sprintf("Unable to find class '%s' from '%s' with include path %s",
-            $className, $pathToFile, get_include_path()));
-    }*/
-
-    require_once $classPath;
+    if (substr($className, 0, 4) === 'Dwoo') {
+        require_once 'Dwoo' . DS . strtr($className, '_', DS).'.php';
+    } else {
+        require_once str_replace(array('\\', '_'), DS, $className) . '.php';
+    }
 }
 
 spl_autoload_register("autoloadClass");

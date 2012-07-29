@@ -15,7 +15,6 @@ class ShowPage extends \JSomerstone\Cimbic\Core\View
 
     protected $templateFile;
 
-    protected $sitePath;
 
     public function __construct($sitePath)
     {

@@ -25,7 +25,7 @@ class ShowPage extends \JSomerstone\Cimbic\Core\View
 
     public function setTemplate($templateName)
     {
-        $templateLocation = sprintf('%s/Template/%s/skeleton.tpl',
+        $templateLocation = sprintf('%s/Public/Template/%s/skeleton.tpl',
                 $this->sitePath, $templateName );
         $this->template = $templateName;
         $this->templateFile = new \Dwoo_Template_File($templateLocation);
@@ -45,5 +45,21 @@ class ShowPage extends \JSomerstone\Cimbic\Core\View
             nl2br(var_export($this->request->getGet(), true)),
             nl2br(var_export($this->request->getPost(), true))
         );
+    }
+
+    public function addCss($file, $media = 'all')
+    {
+        if (!isset($this->data['cssList']))
+        {
+            $this->data['cssList'] = array();
+        }
+        $this->data['cssList'][] = array(
+            'file' => sprintf('Template/%s/css/%s.css',
+                $this->template,
+                $file
+            ),
+            'media' => $media
+        );
+
     }
 }

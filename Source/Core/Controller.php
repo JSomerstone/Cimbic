@@ -4,6 +4,7 @@ namespace JSomerstone\Cimbic\Core;
 class Controller extends \JSomerstone\JSFramework\Controller
 {
     protected $sitePath = '';
+    protected $template = 'default';
 
     public function __construct(
         $sitePath,

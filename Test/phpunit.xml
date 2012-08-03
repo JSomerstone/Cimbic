@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit syntaxCheck="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         strict="true"
+         verbose="true"
+         bootstrap="bootstrap.php"
+         timeoutForSmallTests="3">
+
+    <testsuites>
+        <testsuite name="Functional Tests">
+            <directory suffix="Test.php">Module/</directory>
+        </testsuite>
+        <testsuite name="Unit Tests">
+            <directory suffix="Test.php">Unit/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../Source</directory>
+            <exclude>
+                <directory suffix=".php">../Source/Layout</directory>
+                <directory suffix=".php">../Source/View</directory>
+                <directory suffix=".php">../Source/Public</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+
+    <logging>
+        <log type="junit"
+             target="../Documents/junit.xml"
+             logIncompleteSkipped="true" />
+
+        <log type="coverage-html"
+            target="../Documents/Coverage/"
+            charset="UTF-8"
+            yui="true"
+            highlight="true"
+            lowUpperBound="50"
+            highLowerBound="75" />
+        <!-- <log type="coverage-clover" target="../Doc/Coverage.xml" /> -->
+        <!-- <log type="coverage-php" target="../Doc/unit.serialized" /> -->
+    </logging>
+
+</phpunit>

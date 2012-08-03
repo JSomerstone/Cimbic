@@ -22,6 +22,7 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
     public function index()
     {
         $this->view->set('siteTitle', 'Front page');
+        $this->applyCss();
         $requestedPageHierarchy = $this->request->getRequestPath();
         $requestedPagePath = sprintf(
                 '%s/Content/%s.htm',
@@ -38,6 +39,11 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
             $this->_404();
         }
 
+    }
+
+    public function applyCss()
+    {
+        $this->view->addCss('styles');
     }
 
     private function setContent($pagePath)

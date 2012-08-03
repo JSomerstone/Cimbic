@@ -1,4 +1,5 @@
 <?php
+passthru('clear');
 //require_once '../Source/cimbicAutoloader.php';
 defined('TIMEZONE') OR define('TIMEZONE', 'Europe/Helsinki');
 date_default_timezone_set(TIMEZONE);
@@ -65,4 +66,4 @@ function rrmdir($dir) {
     rmdir($dir);
   }
   else if (file_exists($dir)) unlink($dir);
-} 
+}

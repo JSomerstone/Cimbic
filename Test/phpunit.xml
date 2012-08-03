@@ -11,11 +11,8 @@
          timeoutForSmallTests="3">
 
     <testsuites>
-        <testsuite name="Functional Tests">
-            <directory suffix="Test.php">Module/</directory>
-        </testsuite>
-        <testsuite name="Unit Tests">
-            <directory suffix="Test.php">Unit/</directory>
+        <testsuite name="Integration Tests">
+            <directory suffix="Test.php">Integration/</directory>
         </testsuite>
     </testsuites>
 

@@ -6,6 +6,7 @@ defined('DS') OR define('DS', DIRECTORY_SEPARATOR);
 defined('NL') OR define('NL', "\n");
 
 //include_once 'Dwoo/Dwoo.php';
+include_once __DIR__ . '/../Test/Debug.php';
 
 function autoloadClass($className)
 {

@@ -16,15 +16,31 @@ class ContentManager
     private $request;
 
     private $sitePath;
+    private $baseUrl;
 
-
-    public function __construct($sitePath)
+    public function __construct($sitePath, $baseUrl = '')
     {
         if (!file_exists($sitePath))
         {
             die('Unable to find content');
         }
+        $this->baseUrl = $this->formBaseUrl($baseUrl);
         $this->sitePath = $sitePath;
+    }
+
+    /**
+     * Form base url <http(s)>://<host>/$baseUrl/
+     * @param string $baseUrl
+     * @return string URL
+     */
+    private function formBaseUrl($baseUrl = '')
+    {
+        return sprintf(
+            '%s://%s/%s/',
+            (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != "off") ? "https" : "http",
+            $_SERVER['HTTP_HOST'],
+            $baseUrl
+        );
     }
 
     public function execute(Request $requestObj = null)
@@ -48,10 +64,10 @@ class ContentManager
             && in_array($controllerName, $controllers)
             && @class_exists($controllerClass)
         ) {
-            return new $controllerClass($this->sitePath, $this->request);
+            return new $controllerClass($this->sitePath, $this->baseUrl, $this->request);
         } else {
             //Assume show page reguest
-            return new Controller\ShowPage($this->sitePath, $this->request);
+            return new Controller\ShowPage($this->sitePath, $this->baseUrl, $this->request);
         }
     }
 

@@ -29,6 +29,7 @@ class Testcase extends \JSomerstone\Cimbic\Test\Testcase
 
     public function setUp()
     {
+        $_SERVER['HTTP_HOST'] = 'localhost';
         $this->controller = new \JSomerstone\Cimbic\ContentManager(self::$tempSitePath);
     }
 

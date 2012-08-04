@@ -5,7 +5,10 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
 {
     protected function setup()
     {
-        $this->view = new \JSomerstone\Cimbic\View\ShowPage($this->sitePath);
+        $this->view = new \JSomerstone\Cimbic\View\ShowPage(
+            $this->sitePath,
+            $this->baseUrl
+        );
 
         $this->view->set('request', $this->request);
     }
@@ -83,15 +86,5 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
             $this->sitePath
         );
         $this->setContent(file_get_contents($frontPagePath));
-    }
-
-    private function _404()
-    {
-        $this->view->setErrorCode(\JSomerstone\JSFramework\View::ERROR_CODE_NOT_FOUND);
-        $contentPath = sprintf(
-            '%s/ErrorPages/404.htm',
-            dirname(__DIR__)
-        );
-        $this->setContent(file_get_contents($contentPath));
     }
 }

@@ -1,6 +1,8 @@
 <?php
+require_once 'Debug.php';
+
 passthru('clear');
-//require_once '../Source/cimbicAutoloader.php';
+
 defined('TIMEZONE') OR define('TIMEZONE', 'Europe/Helsinki');
 date_default_timezone_set(TIMEZONE);
 
@@ -25,24 +27,7 @@ function testAutoloadClass($className)
 
 spl_autoload_register("testAutoloadClass");
 
-function D()
-{
-    echo '---Debug-output-start--', "\n";
-    foreach (func_get_args() AS $debug)
-    {
-        var_dump($debug);
-    }
-    echo '---Debug-output-end----', "\n";
-}
 
-function DE()
-{
-    foreach (func_get_args() AS $debug)
-    {
-        var_dump($debug);
-    }
-    exit(0);
-}
 
 function loadMock($className)
 {

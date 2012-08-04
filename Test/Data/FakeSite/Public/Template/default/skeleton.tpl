@@ -1,3 +1,9 @@
-site:FakeSite
-template:default
-{$content}
+<html>
+    {include header.tpl}
+    <body>
+        site:FakeSite
+        template:default
+        {$content}
+    </body>
+    {include footer.tpl}
+</html>

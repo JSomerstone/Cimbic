@@ -27,10 +27,12 @@ spl_autoload_register("testAutoloadClass");
 
 function D()
 {
+    echo '---Debug-output-start--', "\n";
     foreach (func_get_args() AS $debug)
     {
         var_dump($debug);
     }
+    echo '---Debug-output-end----', "\n";
 }
 
 function DE()

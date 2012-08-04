@@ -43,7 +43,32 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
 
     public function applyCss()
     {
-        $this->view->addCss('styles');
+        $templateCss = $this->getListOfTemplateCssFiles();
+        foreach ($templateCss as $aCss)
+        {
+            $this->view->addCss($aCss);
+        }
+    }
+
+    private function getListOfTemplateCssFiles()
+    {
+        $cssPath = sprintf(
+                '%s/Public/Template/%s/css/',
+                $this->sitePath,
+                $this->template
+        );
+
+        $cssList = scandir($cssPath);
+        foreach ($cssList as $i => $aCssFile)
+        {
+            if (preg_match('/.css$/i', $aCssFile)){
+                $cssList[$i] = substr($aCssFile, 0, -4);
+            } else {
+                unset($cssList[$i]);
+            }
+
+        }
+        return $cssList;
     }
 
     private function setContent($pagePath)

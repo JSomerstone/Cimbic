@@ -1,9 +1,9 @@
 <?php
 namespace JSomerstone\Cimbic\View;
+use JSomerstone\Cimbic\Exception\SiteException as SiteException;
 
 class ShowPage extends \JSomerstone\Cimbic\Core\View
 {
-    public $pageID = null;
     public $request;
     public $debug;
 
@@ -96,6 +96,11 @@ class ShowPage extends \JSomerstone\Cimbic\Core\View
         );
     }
 
+    /**
+     * Adds a CSS-link to be printed into <head> section of output
+     * @param string $file Path to CSS-file. For example 'css/typeface.css'
+     * @param string $media optional "media"-attribute of CSS-link, for example 'screen'
+     */
     public function addCss($file, $media = 'all')
     {
         if (!isset($this->data['cssList']))

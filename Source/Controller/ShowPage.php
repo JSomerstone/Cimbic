@@ -46,13 +46,26 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
 
     public function applyCss()
     {
+        //Apply Blueprint CSSes
+        $this->view->addCss('StaticFile/css/blueprint/screen', 'screen, projection');
+        $this->view->addCss('StaticFile/css/blueprint/print', 'print');
+
+
         $templateCss = $this->getListOfTemplateCssFiles();
         foreach ($templateCss as $aCss)
         {
-            $this->view->addCss($aCss);
+            $this->view->addCss(
+                sprintf('Template/%s/css/%s.css',
+                $this->template,
+                $aCss
+            ));
         }
     }
 
+    /**
+     * Scans current templates css-folder and returns list of css files
+     * @return array List of CSS-files
+     */
     private function getListOfTemplateCssFiles()
     {
         $cssPath = sprintf(
@@ -60,18 +73,7 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
                 $this->sitePath,
                 $this->template
         );
-
-        $cssList = scandir($cssPath);
-        foreach ($cssList as $i => $aCssFile)
-        {
-            if (preg_match('/.css$/i', $aCssFile)){
-                $cssList[$i] = substr($aCssFile, 0, -4);
-            } else {
-                unset($cssList[$i]);
-            }
-
-        }
-        return $cssList;
+        return \JSomerstone\Cimbic\Model\CssFile::scanDirForCssFiles($cssPath);
     }
 
     private function setContent($pagePath)

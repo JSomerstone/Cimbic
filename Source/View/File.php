@@ -3,25 +3,37 @@ namespace JSomerstone\Cimbic\View;
 
 class File extends \JSomerstone\Cimbic\Core\View
 {
-
-    private $fileHandle;
-    private $filePath;
-
-    public function __construct($sitePath, $filePath = null)
+    /**
+     * Outputs HEADERS and CONTENT
+     * Overrides JSomerstone\JSFramework\View::output()
+     */
+    public function output()
     {
-        parent::__construct($sitePath);
-        $this->filePath = $filePath;
+        $this->_setHeaderAccordingToErrorCode();
+        $this->_setFileHeaders();
+        $this->printOutput();
     }
 
-    public function openFile($filePath)
+    private function _setFileHeaders()
     {
-        $absolutePath = $this->sitePath . '/' .$filePath;
-
-        $this->fileHandle = fopen($absolutePath, 'r');
+        $fileModel = $this->get('model');
+        //D($fileModel->getFileName(), $fileModel->getFileType());
+        // Set headers
+        $this->setHeader(
+            'Content-Disposition',
+            'attachment; filename=' . $fileModel->getFileName()
+        );
+        $this->setHeader(
+            'Content-Type',
+            $fileModel->getFileType()
+        );
+        //NativeFunctions::header("Content-Type: application/zip");
+        //NativeFunctions::header("Content-Transfer-Encoding: binary");
     }
 
     public function printOutput()
     {
-        //TODO : loop throug fileHandle and output the content of file
+        $fileModel = $this->get('model');
+        echo $fileModel->getFileContent();
     }
 }

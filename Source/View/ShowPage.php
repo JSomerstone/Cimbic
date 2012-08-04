@@ -73,8 +73,12 @@ class ShowPage extends \JSomerstone\Cimbic\Core\View
      */
     public function setTemplate($templateName)
     {
-        $templateLocation = sprintf('%s/Public/Template/%s/skeleton.tpl',
+        $templateLocation = sprintf('%s/Public/Template/%s/index.tpl',
                 $this->sitePath, $templateName );
+        if (!file_exists($templateLocation))
+        {
+            throw new SiteException("Unable to locate 'index.tpl' from site '$this->sitePath'");
+        }
         $this->template = $templateName;
         $this->templateFile = new \Dwoo_Template_File($templateLocation);
     }

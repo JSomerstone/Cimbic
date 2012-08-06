@@ -11,7 +11,7 @@ include_once __DIR__ . '/../Test/Debug.php';
 function autoloadClass($className)
 {
     if (substr($className, 0, 4) === 'Dwoo') {
-        require_once 'Dwoo' . DS . strtr($className, '_', DS).'.php';
+        require_once '3rdParty/Dwoo/' . strtr($className, '_', DS).'.php';
     } else {
         require_once str_replace(array('\\', '_'), DS, $className) . '.php';
     }

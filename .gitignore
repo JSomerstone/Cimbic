@@ -1,3 +1,5 @@
 nbproject/
 Documents/Coverage/
 Documents/junit.xml
+Source/3rdParty/Dwoo/cache/*
+Source/3rdParty/Dwoo/compiled/* 

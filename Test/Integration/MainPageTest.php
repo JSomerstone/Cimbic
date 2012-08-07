@@ -11,7 +11,8 @@ class MainPageTest extends Testcase
     public function mainPageShownOnEmptyUrl()
     {
         $this->get()
-            ->assertOutput('/Fake site frontpage/')
+            ->assertOutput('/Fake site frontpage/') //from frontpage.htm
+            ->assertOutput('/Welcome/') //from frontpage.json
             ->assertStatus(200);
     }
 
@@ -54,6 +55,16 @@ class MainPageTest extends Testcase
     {
         $this->get()
             ->assertOutput('|http://localhost/sites/fakesites.net|')
+            ->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function pageTitleIsShownCorrectly()
+    {
+        $this->get('page1')
+            ->assertOutput("/Page I/") //This comes from page1.json
             ->assertStatus(200);
     }
 }

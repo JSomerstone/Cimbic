@@ -24,24 +24,32 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
 
     public function index()
     {
-        $this->view->set('siteTitle', 'Front page');
+        $this->view->set('siteTitle', 'by JSomerstone');
         $this->applyCss();
         $requestedPageHierarchy = $this->request->getRequestPath();
-        $requestedPagePath = sprintf(
-                '%s/Content/%s.htm',
-                $this->sitePath,
-                implode('/', $requestedPageHierarchy)
-        );
+        $requestedPagePath = $this->getRequestedPagePath();
 
         if (empty($requestedPageHierarchy))
         {
             $this->_frontPage();
         } elseif (file_exists($requestedPagePath)) {
             $this->setContent(file_get_contents($requestedPagePath));
+            $this->setPageSettings($this->getPageSettings($requestedPageHierarchy));
         } else {
             $this->_404();
         }
 
+    }
+
+    private function getRequestedPagePath()
+    {
+        $requestedPageHierarchy = $this->request->getRequestPath();
+        $requestedPagePath = sprintf(
+                '%s/Content/%s.htm',
+                $this->sitePath,
+                implode('/', $requestedPageHierarchy)
+        );
+        return $requestedPagePath;
     }
 
     public function applyCss()
@@ -81,6 +89,19 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         $this->view->set('content', $pageContent);
     }
 
+    private function setPageSettings(array $settings)
+    {
+        $this->view->setAssoc($settings);
+        if (isset($settings['pageTitle']))
+        {
+            $this->view->set('siteTitle', sprintf(
+                '%s - %s',
+                $settings['pageTitle'],
+                $this->view->get('siteTitle')
+            ));
+        }
+    }
+
     private function _frontPage()
     {
         $frontPagePath = sprintf(
@@ -88,5 +109,38 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
             $this->sitePath
         );
         $this->setContent(file_get_contents($frontPagePath));
+        $this->setPageSettings($this->getPageSettings(array('frontpage')));
+    }
+
+    /**
+     * Reads settings for requested page
+     * Settings are stored in <site>/Content/<requested/page>.json
+     * @param array $requestedPath Path to requested page as array
+     * @return array
+     */
+    private function getPageSettings(array $requestedPath)
+    {
+        $requestedPagePath = sprintf(
+                '%s/Content/%s.json',
+                $this->sitePath,
+                implode('/', $requestedPath)
+        );
+
+        if (file_exists($requestedPagePath) && is_readable($requestedPagePath))
+        {
+            $settings = json_decode(file_get_contents($requestedPagePath), true);
+            if (!empty($settings))
+            {
+                return $settings;
+            }
+            else
+            {
+                return array();
+            }
+        }
+        else
+        {
+            return array();
+        }
     }
 }

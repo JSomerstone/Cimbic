@@ -1,6 +1,6 @@
 <?php
-namespace JSomerstone\Cimbic\Core;
-abstract class View extends \JSomerstone\JSFramework\View
+namespace JSomerstone\Cimbic\View;
+abstract class CoreView extends \JSomerstone\JSFramework\View
 {
     protected $template = 'default';
     protected $sitePath;

@@ -1,7 +1,7 @@
 <?php
 namespace JSomerstone\Cimbic\View;
 
-class Json extends \JSomerstone\Cimbic\Core\View
+class Json extends CoreView
 {
     public $data;
 

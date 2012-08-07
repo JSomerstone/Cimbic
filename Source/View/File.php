@@ -1,7 +1,7 @@
 <?php
 namespace JSomerstone\Cimbic\View;
 
-class File extends \JSomerstone\Cimbic\Core\View
+class File extends CoreView
 {
     /**
      * Outputs HEADERS and CONTENT

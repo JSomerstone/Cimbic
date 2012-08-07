@@ -2,7 +2,7 @@
 
 namespace JSomerstone\Cimbic\View;
 
-class EmptyView extends \JSomerstone\Cimbic\Core\View
+class EmptyView extends CoreView
 {
     public function __toString()
     {

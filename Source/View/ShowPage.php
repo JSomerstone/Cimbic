@@ -2,7 +2,7 @@
 namespace JSomerstone\Cimbic\View;
 use JSomerstone\Cimbic\Exception\SiteException as SiteException;
 
-class ShowPage extends \JSomerstone\Cimbic\Core\View
+class ShowPage extends CoreView
 {
     public $request;
     public $debug;

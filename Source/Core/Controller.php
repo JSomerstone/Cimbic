@@ -24,13 +24,11 @@ class Controller extends \JSomerstone\JSFramework\Controller
      */
     protected function _404()
     {
-        $this->view = new \JSomerstone\Cimbic\View\ShowPage($this->sitePath, $this->baseUrl);
         $this->view->setErrorCode(\JSomerstone\JSFramework\View::ERROR_CODE_NOT_FOUND);
         $contentPath = sprintf(
             '%s/ErrorPages/404.htm',
             dirname(__DIR__)
         );
-        $this->view->setLayout('contentOnly');
         $this->view->set('siteTitle', 'Requested file not found');
         $this->view->set('content', file_get_contents($contentPath));
     }

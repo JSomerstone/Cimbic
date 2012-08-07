@@ -46,4 +46,14 @@ class MainPageTest extends Testcase
             ->assertOutput("/Error 404 - Not found/")
             ->assertStatus(404);
     }
+
+    /**
+     * @test
+     */
+    public function baseUrlIsGeneratedCorrectly()
+    {
+        $this->get()
+            ->assertOutput('|http://localhost/sites/fakesites.net|')
+            ->assertStatus(200);
+    }
 }

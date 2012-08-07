@@ -18,13 +18,14 @@ class ContentManager
     private $sitePath;
     private $baseUrl;
 
-    public function __construct($sitePath, $baseUrl = '')
+    public function __construct($sitePath)
     {
         if (!file_exists($sitePath))
         {
             die('Unable to find content');
         }
-        $this->baseUrl = $this->formBaseUrl($baseUrl);
+        $this->baseUrl = $this->formBaseUrl();
+
         $this->sitePath = $sitePath;
     }
 
@@ -33,14 +34,16 @@ class ContentManager
      * @param string $baseUrl
      * @return string URL
      */
-    private function formBaseUrl($baseUrl = '')
+    private function formBaseUrl()
     {
-        return sprintf(
-            '%s://%s/%s/',
+        $sitePathPrefix = defined('SITE_PATH_PREFIX') ? SITE_PATH_PREFIX : '';
+        $baseUrl = sprintf(
+            '%s://%s/%s',
             (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != "off") ? "https" : "http",
             $_SERVER['HTTP_HOST'],
-            $baseUrl
+            $sitePathPrefix ? $sitePathPrefix . '/' : ''
         );
+        return $baseUrl;
     }
 
     public function execute(Request $requestObj = null)

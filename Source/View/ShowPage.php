@@ -54,7 +54,7 @@ class ShowPage extends \JSomerstone\Cimbic\Core\View
     public function setLayout($layoutName)
     {
         $templateLocation = sprintf('%s/Public/Template/%s/Layout/%s.tpl',
-                $this->sitePath, $layoutName );
+                $this->sitePath, $this->template, $layoutName );
         if (!file_exists($templateLocation))
         {
             throw new SiteException(

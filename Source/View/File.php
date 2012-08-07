@@ -16,24 +16,33 @@ class File extends \JSomerstone\Cimbic\Core\View
 
     private function _setFileHeaders()
     {
-        $fileModel = $this->get('model');
-        //D($fileModel->getFileName(), $fileModel->getFileType());
-        // Set headers
-        $this->setHeader(
-            'Content-Disposition',
-            'attachment; filename=' . $fileModel->getFileName()
-        );
-        $this->setHeader(
-            'Content-Type',
-            $fileModel->getFileType()
-        );
+        if ($this->get('contentType'))
+        {
+            $this->setHeader(
+                'Content-Type',
+                $this->get('contentType')
+            );
+        }
+        if ($this->get('fileName'))
+        {
+            $this->setHeader(
+                'Content-Disposition',
+                'attachment; filename=' . $this->get('fileName')
+            );
+        }
+        if ($this->get('fileType'))
+        {
+            $this->setHeader(
+                'Content-Type',
+                $this->get('fileType')
+            );
+        }
         //NativeFunctions::header("Content-Type: application/zip");
         //NativeFunctions::header("Content-Transfer-Encoding: binary");
     }
 
     public function printOutput()
     {
-        $fileModel = $this->get('model');
-        echo $fileModel->getFileContent();
+        echo $this->get('content');
     }
 }

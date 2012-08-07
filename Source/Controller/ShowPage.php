@@ -76,9 +76,9 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         return \JSomerstone\Cimbic\Model\CssFile::scanDirForCssFiles($cssPath);
     }
 
-    private function setContent($pagePath)
+    private function setContent($pageContent)
     {
-        $this->view->set('content', $pagePath);
+        $this->view->set('content', $pageContent);
     }
 
     private function _frontPage()

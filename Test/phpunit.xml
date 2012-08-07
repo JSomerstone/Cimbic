@@ -20,9 +20,8 @@
         <whitelist>
             <directory suffix=".php">../Source</directory>
             <exclude>
-                <directory suffix=".php">../Source/Layout</directory>
+                <directory suffix=".php">../Source/3rdParty</directory>
                 <directory suffix=".php">../Source/View</directory>
-                <directory suffix=".php">../Source/Public</directory>
             </exclude>
         </whitelist>
     </filter>

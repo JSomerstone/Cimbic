@@ -13,15 +13,14 @@ class CssFile extends \JSomerstone\Cimbic\Core\Model implements FileModelInterfa
             dirname(__DIR__),
             $file
         );
-        if (!file_exists($filePath))
-        {
-            throw new \JSomerstone\JSFramework\Exception\NotFoundException(
-                "Css file '$file' was not found from '$filePath'"
-            );
-        }
-
+        
         $this->filePath = $filePath;
         $this->fileName = basename($filePath);
+    }
+
+    public function isOk()
+    {
+        return file_exists($this->filePath) && is_readable($this->filePath);
     }
 
     public function getFileName()

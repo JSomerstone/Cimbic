@@ -18,19 +18,18 @@ class StaticFile extends \JSomerstone\Cimbic\Core\Controller
         $fileModel = new \JSomerstone\Cimbic\Model\CssFile(
             implode('/', $requestPath)
         );
-
-        if (!$fileModel->isOk())
+        if ($fileModel->isOk())
         {
-            $this->view->setErrorCode(\JSomerstone\JSFramework\View::ERROR_CODE_NOT_FOUND);
+            $this->view->setAssoc(array(
+                'contentType'   => 'text/css',
+                'fileType'      => $fileModel->getFileType(),
+                'fileName'      => $fileModel->getFileName(),
+                'content'       => $fileModel->getFileContent(),
+            ));
         }
         else
         {
-            $this->view->setAssoc(array(
-                'contentType' =>  'text/css',
-                'content', $fileModel->getFileContent(),
-                'fileType', $fileModel->getFileType(),
-                'fileName', $fileModel->getFileName()
-            ));
+            $this->_404();
         }
     }
 }

@@ -24,13 +24,4 @@ class ResourceTest extends Testcase
             ->assertOutput('/StaticFile\/css\/blueprint\/print/')
             ->assertStatus(200);
     }
-
-    /**
-     * @test
-     */
-    public function referenceToNonExistingResults404()
-    {
-        $this->get('StaticFile/css/nothing')
-            ->assertStatus(404);
-    }
 }

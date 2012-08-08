@@ -67,4 +67,14 @@ class MainPageTest extends Testcase
             ->assertOutput("/Page I/") //This comes from page1.json
             ->assertStatus(200);
     }
+
+    /**
+     * @test
+     */
+    public function siteTitleIsShownCorrectly()
+    {
+        $this->get('page1')
+            ->assertOutput("/Page I - Fakesite/") //This comes from page1.json and settings.json
+            ->assertStatus(200);
+    }
 }

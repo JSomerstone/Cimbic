@@ -33,4 +33,19 @@ class Controller extends \JSomerstone\JSFramework\Controller
         $this->view->set('content', file_get_contents($contentPath));
     }
 
+    /**
+     * Reads and decodes settings.json from Site, returns assoc array
+     * @return array
+     */
+    protected function getSiteSettings()
+    {
+        $settingsFile = $this->sitePath . '/settings.json';
+        $settings = array();
+        if (file_exists($settingsFile) && is_readable($settingsFile))
+        {
+            $settings = json_decode(file_get_contents($settingsFile), true);
+        }
+        return $settings;
+    }
+
 }

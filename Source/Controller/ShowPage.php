@@ -11,6 +11,7 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         );
 
         $this->view->set('request', $this->request);
+        $this->setSiteSettings();
     }
 
     /**
@@ -24,7 +25,6 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
 
     public function index()
     {
-        $this->view->set('siteTitle', 'by JSomerstone');
         $this->applyCss();
         $requestedPageHierarchy = $this->request->getRequestPath();
         $requestedPagePath = $this->getRequestedPagePath();
@@ -38,7 +38,6 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         } else {
             $this->_404();
         }
-
     }
 
     private function getRequestedPagePath()
@@ -87,6 +86,12 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
     private function setContent($pageContent)
     {
         $this->view->set('content', $pageContent);
+    }
+
+    private function setSiteSettings()
+    {
+        $settings = $this->getSiteSettings();
+        $this->view->setAssoc($settings);
     }
 
     private function setPageSettings(array $settings)

@@ -9,11 +9,11 @@ class CssFile extends \JSomerstone\Cimbic\Core\Model implements FileModelInterfa
     public function __construct($file)
     {
         $filePath = sprintf(
-            '%s/Css/%s.css',
+            '%s/3rdParty/%s.css',
             dirname(__DIR__),
             $file
         );
-        
+
         $this->filePath = $filePath;
         $this->fileName = basename($filePath);
     }

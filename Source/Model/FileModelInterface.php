@@ -8,5 +8,7 @@ interface FileModelInterface
     public function getFileContent();
 
     public function getFileType();
-    
+
+    public function isOk();
+
 }

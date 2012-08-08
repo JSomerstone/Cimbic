@@ -26,6 +26,8 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
     public function index()
     {
         $this->applyCss();
+        $this->applyJavascripts();
+
         $requestedPageHierarchy = $this->request->getRequestPath();
         $requestedPagePath = $this->getRequestedPagePath();
 
@@ -34,7 +36,8 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
             $this->_frontPage();
         } elseif (file_exists($requestedPagePath)) {
             $this->setContent(file_get_contents($requestedPagePath));
-            $this->setPageSettings($this->getPageSettings($requestedPageHierarchy));
+            $this->setPageSettings();
+
         } else {
             $this->_404();
         }
@@ -51,12 +54,40 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         return $requestedPagePath;
     }
 
+    private function applyJavascripts()
+    {
+        $this->view->addMultipleJavascripts($this->getSiteJavascripts());
+    }
+
+    public function getSiteJavascripts()
+    {
+        $jsPath = sprintf(
+                '%s/Public/js/',
+                $this->sitePath
+        );
+        $jsList = \JSomerstone\Cimbic\Model\JsFile::scanDirForJsFiles($jsPath);
+        foreach ($jsList as $i => $jsFile)
+        {
+            $jsList[$i] = 'js/' . $jsFile;
+        }
+        return $jsList;
+    }
+
     public function applyCss()
     {
-        //Apply Blueprint CSSes
+        //Apply Blueprint CSS'es
         $this->view->addCss('StaticFile/css/blueprint/screen', 'screen, projection');
         $this->view->addCss('StaticFile/css/blueprint/print', 'print');
+        //Apply jQuery-UI's CSS'es
 
+        $siteCss = $this->getListOfSiteCssFiles();
+        foreach ($siteCss as $aCss)
+        {
+            $this->view->addCss(
+                sprintf('css/%s.css',
+                $aCss
+            ));
+        }
 
         $templateCss = $this->getListOfTemplateCssFiles();
         foreach ($templateCss as $aCss)
@@ -83,6 +114,19 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         return \JSomerstone\Cimbic\Model\CssFile::scanDirForCssFiles($cssPath);
     }
 
+    /**
+     * Scans current sites css-folder and returns list of css files
+     * @return array List of CSS-files
+     */
+    private function getListOfSiteCssFiles()
+    {
+        $cssPath = sprintf(
+                '%s/Public/css/',
+                $this->sitePath
+        );
+        return \JSomerstone\Cimbic\Model\CssFile::scanDirForCssFiles($cssPath);
+    }
+
     private function setContent($pageContent)
     {
         $this->view->set('content', $pageContent);
@@ -94,8 +138,12 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         $this->view->setAssoc($settings);
     }
 
-    private function setPageSettings(array $settings)
+    private function setPageSettings(array $settings = null)
     {
+        if (is_null($settings))
+        {
+            $settings = $this->getPageSettings($this->request->getRequestPath());
+        }
         $this->view->setAssoc($settings);
         if (isset($settings['pageTitle']))
         {
@@ -130,22 +178,20 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
                 $this->sitePath,
                 implode('/', $requestedPath)
         );
-
+        $settings = array();
         if (file_exists($requestedPagePath) && is_readable($requestedPagePath))
         {
             $settings = json_decode(file_get_contents($requestedPagePath), true);
-            if (!empty($settings))
-            {
-                return $settings;
-            }
-            else
-            {
-                return array();
-            }
         }
-        else
-        {
-            return array();
-        }
+        return $settings;
+    }
+
+    /**
+     * Return true if editing is allowed for current user
+     * @return bool
+     */
+    private function editingIsAllowed()
+    {
+        return $this->request->getUri('edit') ? true : false;
     }
 }

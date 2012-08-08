@@ -11,6 +11,28 @@ class StaticFile extends \JSomerstone\Cimbic\Core\Controller
         $this->view->setHeader('Content-Description', 'File Transfer');
     }
 
+    public function js()
+    {
+        //Get request path after Controller/action
+        $requestPath = $this->request->getRequestPath(2);
+        $fileModel = new \JSomerstone\Cimbic\Model\JsFile(
+            implode('/', $requestPath)
+        );
+        if ($fileModel->isOk())
+        {
+            $this->view->setAssoc(array(
+                'contentType'   => 'text/javascript',
+                'fileType'      => $fileModel->getFileType(),
+                'fileName'      => $fileModel->getFileName(),
+                'content'       => $fileModel->getFileContent(),
+            ));
+        }
+        else
+        {
+            $this->_404();
+        }
+    }
+
     public function css()
     {
         //Get request path after Controller/action

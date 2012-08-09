@@ -119,27 +119,24 @@ class ShowPage extends CoreView
 
     /**
      * Add single js-file to view setting jsList
-     * @param string $file Link to .js file
+     * @param string|array $file relative path to .js file or array of them
      */
-    public function addJavascrit($file)
+    public function addJavaScript($file)
     {
         if (!isset($this->data['jsList']))
         {
             $this->data['jsList'] = array();
         }
-
-        $this->data['jsList'][] = array('file' => $file);
-    }
-
-    /**
-     * Add array of .js-files to view
-     * @param array $listOfFiles
-     */
-    public function addMultipleJavascripts(array $listOfFiles)
-    {
-        foreach ($listOfFiles as $file)
+        if (is_array($file))
         {
-            $this->addJavascrit($file);
+            foreach ($file as $aScript)
+            {
+                $this->addJavaScript($aScript);
+            }
+        }
+        else
+        {
+            $this->data['jsList'][] = array('file' => $file);
         }
     }
 }

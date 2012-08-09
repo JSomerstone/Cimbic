@@ -56,7 +56,7 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
 
     private function applyJavascripts()
     {
-        $this->view->addMultipleJavascripts($this->getSiteJavascripts());
+        $this->view->addJavaScript($this->getSiteJavascripts());
     }
 
     public function getSiteJavascripts()
@@ -76,9 +76,11 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
     public function applyCss()
     {
         //Apply Blueprint CSS'es
-        $this->view->addCss('StaticFile/css/blueprint/screen', 'screen, projection');
-        $this->view->addCss('StaticFile/css/blueprint/print', 'print');
+        $this->view->addCss('cimbic/css/blueprint/screen.css', 'screen, projection');
+        $this->view->addCss('cimbic/css/blueprint/print.css', 'print');
         //Apply jQuery-UI's CSS'es
+        $this->view->addCss('cimbic/css/dark-hive/jquery-ui.css', 'all');
+
 
         $siteCss = $this->getListOfSiteCssFiles();
         foreach ($siteCss as $aCss)

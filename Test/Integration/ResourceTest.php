@@ -30,8 +30,8 @@ class ResourceTest extends Testcase
     public function cimpicCssesAreIncluded()
     {
         $this->get()
-            ->assertOutput('/StaticFile\/css\/blueprint\/screen/')
-            ->assertOutput('/StaticFile\/css\/blueprint\/print/')
+            ->assertOutput('/cimbic\/css\/blueprint\/screen/')
+            ->assertOutput('/cimbic\/css\/blueprint\/print/')
             ->assertStatus(200);
     }
 

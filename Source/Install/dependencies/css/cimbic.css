@@ -1,0 +1,120 @@
+.dropdown-menu {
+    font-size: 0.7em;
+}
+.hallotoolbar {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: alpha(opacity=75);
+    -moz-opacity:0.75;
+    -khtml-opacity: 0.75;
+    opacity: 0.75;
+}
+
+/* sprites.less reset */
+[class^="icon-"], [class*=" icon-"] {
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: inherit;
+    vertical-align: baseline;
+    background-image: none;
+    background-position: 0% 0%;
+    background-repeat: repeat;
+}
+li[class^="icon-"], li[class*=" icon-"] {
+    display: block;
+}
+/*  Font Awesome styles
+    ------------------------------------------------------- */
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+}
+a [class^="icon-"], a [class*=" icon-"] {
+    display: inline-block;
+    text-decoration: inherit;
+}
+/* makes the font 33% larger relative to the icon container */
+.icon-large:before {
+    vertical-align: top;
+    font-size: 1.3333333333333333em;
+}
+.btn [class^="icon-"], .btn [class*=" icon-"] {
+    /* keeps button heights with and without icons the same */
+    line-height: .9em;
+}
+li [class^="icon-"], li [class*=" icon-"] {
+    display: inline-block;
+    width: 1.25em;
+    text-align: center;
+}
+li .icon-large[class^="icon-"], li .icon-large[class*=" icon-"] {
+    /* 1.5 increased font size for icon-large * 1.25 width */
+    width: 1.875em;
+}
+li[class^="icon-"], li[class*=" icon-"] {
+    margin-left: 0;
+    list-style-type: none;
+}
+li[class^="icon-"]:before, li[class*=" icon-"]:before {
+    text-indent: -2em;
+    text-align: center;
+}
+li[class^="icon-"].icon-large:before, li[class*=" icon-"].icon-large:before {
+    text-indent: -1.3333333333333333em;
+}
+/*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+    readers do not read off random characters that represent icons */
+.icon-bold:before               {
+    /* content: "B"; font-weight: bold; font-style: normal; */
+    content: url(../icons/16x16/bold.png);
+}
+.icon-italic:before             {
+    content: "I"; font-style: italic; font-weight: normal;
+    content: url(../icons/16x16/italic.png);
+}
+.icon-text-height:before        {
+    content: url(../icons/16x16/select_color_text.png);
+    /* content: "<>"; */
+}
+.icon-text-width:before         { content: "\f035"; }
+.icon-align-left:before         {
+    content: url(../icons/16x16/align_left.png);
+    /* content: "<>"; */
+}
+.icon-align-center:before       {
+    content: url(../icons/16x16/align_center.png);
+    /* content: "<>"; */
+}
+.icon-align-right:before        {
+    content: url(../icons/16x16/align_right.png);
+    /* content: "<>"; */
+}
+.icon-align-justify:before      {
+    content: url(../icons/16x16/align_justify.png);
+}
+.icon-list:before               {
+    content: url(../icons/16x16/bulleted_list.png);
+}
+.icon-arrow-left:before               {
+    content: url(../icons/16x16/undo.png);
+}
+.icon-arrow-right:before               {
+    content: url(../icons/16x16/redo.png);
+}
+.icon-bookmark:before               {
+    content: url(../icons/16x16/insert_link.png);
+}
+.icon-indent-left:before        { content: "|<"; }
+.icon-indent-right:before       { content: ">|"; }
+.icon-tags:before               { content: "[]"; }
+.icon-ok-sign:before            { content: "Ok"; }
+.icon-question-sign:before      { content: "?"; }
+.icon-info-sign:before          { content: "i"; }
+.icon-plus:before               { content: "+"; }
+.icon-minus:before              { content: "-"; }
+.icon-asterisk:before           { content: "*"; }
+.icon-exclamation-sign:before   { content: "!"; }
+.icon-warning-sign:before       { content: "(!)"; }

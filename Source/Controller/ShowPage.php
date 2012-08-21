@@ -12,10 +12,11 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
 
         $this->view->set('request', $this->request);
         $this->setSiteSettings();
+
     }
 
     /**
-     * Commit given action
+     * Commit given action = show a page
      * @param string $actionName
      */
     protected function commitAction($actionName)
@@ -35,11 +36,21 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         {
             $this->_frontPage();
         } elseif (file_exists($requestedPagePath)) {
+            $this->view->set('pageUri', implode('/', $this->request->getRequestPath()));
             $this->setContent(file_get_contents($requestedPagePath));
             $this->setPageSettings();
 
         } else {
             $this->_404();
+        }
+
+        if ($this->editingIsAllowed())
+        {
+            $this->view->setLayout('editable');
+            $this->view->addJavaScript(array(
+                'cimbic/js/hallo.js',
+                'cimbic/js/create-hallo.js',
+            ));
         }
     }
 
@@ -56,6 +67,16 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
 
     private function applyJavascripts()
     {
+        $this->view->addJavaScript(array(
+            'cimbic/js/jquery.js',
+            'cimbic/js/jquery-ui.js',
+            //'cimbic/js/jquery.rdfquery.min.js',
+            'cimbic/js/underscore.js',
+            'cimbic/js/backbone.js',
+            'cimbic/js/vie.js',
+            'cimbic/js/annotate.js',
+            'cimbic/js/create.js',
+        ));
         $this->view->addJavaScript($this->getSiteJavascripts());
     }
 
@@ -79,7 +100,10 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         $this->view->addCss('cimbic/css/blueprint/screen.css', 'screen, projection');
         $this->view->addCss('cimbic/css/blueprint/print.css', 'print');
         //Apply jQuery-UI's CSS'es
+        $this->view->addCss('cimbic/css/hallo.css', 'all');
         $this->view->addCss('cimbic/css/dark-hive/jquery-ui.css', 'all');
+        $this->view->addCss('cimbic/css/create-ui.css', 'all');
+        $this->view->addCss('cimbic/css/cimbic.css', 'all');
 
 
         $siteCss = $this->getListOfSiteCssFiles();
@@ -165,6 +189,7 @@ class ShowPage extends \JSomerstone\Cimbic\Core\Controller
         );
         $this->setContent(file_get_contents($frontPagePath));
         $this->setPageSettings($this->getPageSettings(array('frontpage')));
+        $this->view->set('pageUri', '/frontpage');
     }
 
     /**
